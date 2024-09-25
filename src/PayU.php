@@ -27,8 +27,9 @@ class PayU
     CONST EXPIRE_INVOICE_API = 'expire_invoice';
     CONST GET_SETTLEMENT_DETAILS_API = 'get_settlement_details';
     CONST GET_CHECKOUT_DETAILS_API = 'get_checkout_details';
-    CONST SUCCESS_URL = 'https://test.payu.in/admin/test_response';
-    CONST FAILURE_URL = 'https://test.payu.in/admin/test_response';
+    CONST DEFAULT_SUCCESS_URL = 'https://test.payu.in/admin/test_response';
+    CONST DEFAULT_FAILURE_URL = 'https://test.payu.in/admin/test_response';
+
 
     public function __construct() {
 
@@ -66,12 +67,16 @@ class PayU
      *     - string 'udf3' (optional): User-defined field 3.
      *     - string 'udf4' (optional): User-defined field 4.
      *     - string 'udf5' (optional): User-defined field 5.
+     *     - string 'success_url' (optional): URL to redirect to after successful payment.
+     *     - string 'failure_url' (optional): URL to redirect to after failed payment.
      * @return null This function renders the form and submits it via JavaScript.
      */
     public function getPaymentForm($params) {
         $url = $this->url;
         $key = $this->key;
         $hash = $this->getHashKey($params);
+        $success_url = isset($params['success_url']) ? $params['success_url'] : self::DEFAULT_SUCCESS_URL;
+        $failure_url = isset($params['failure_url']) ? $params['failure_url'] : self::DEFAULT_FAILURE_URL;
 
         ob_start();
 
@@ -113,7 +118,8 @@ class PayU
             //hash with additionalcharges
             $CalcHashString = strtolower(hash('sha512', $additionalCharges . '|' . $this->salt . '|' . $status . '|' . $reverseKeyString));
         }
-        return $resphash == $CalcHashString ? true : true;
+
+        return ($resphash == $CalcHashString) ? true : false;
     }
 
     public function verifyPayment($params) {

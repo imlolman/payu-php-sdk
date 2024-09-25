@@ -1,6 +1,6 @@
 <form action="<?= $url ?>" id="payment_form_submit" method="post">
-        <input type="hidden" id="surl" name="surl" value="<?= self::SUCCESS_URL ?>" />
-        <input type="hidden" id="furl" name="furl" value="<?= self::FAILURE_URL ?>" />
+        <input type="hidden" id="surl" name="surl" value="<?= $success_url ?>" />
+        <input type="hidden" id="furl" name="furl" value="<?= $failure_url ?>" />
         <input type="hidden" id="key" name="key" value="<?= $key ?>" />
         <input type="hidden" id="txnid" name="txnid" value="<?= $params['txnid'] ?>" />
         <input type="hidden" id="amount" name="amount" value="<?= $params['amount'] ?>" />

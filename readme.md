@@ -111,7 +111,9 @@ $form = $payu_obj->getPaymentForm([
     'udf2' => '',
     'udf3' => '',
     'udf4' => '',
-    'udf5' => ''
+    'udf5' => '',
+    'success_url' => 'https://test.payu.in/admin/test_response',
+    'failure_url' => 'https://test.payu.in/admin/test_response',
 ]);
 
 echo $form;
@@ -119,6 +121,35 @@ echo $form;
 ?>
 ```
 
+
+```PHP
+// Webhook.php file to verify webhooks
+<?php
+
+// index.phps
+require_once 'vendor/autoload.php';
+require_once('config.php');
+
+$payu_obj = new Imlolman\PayuPhpSdk\PayU();
+
+$payu_obj->env_prod = 0;  //  1 for Live Environment/ 0 for SandBox Environment
+$payu_obj->key = MERCHANT_KEY;
+$payu_obj->salt = PAYU_SALT;
+
+$res = $payu_obj->initGateway();
+
+if($payu_obj->verifyHash($_REQUEST)){
+    $transaction = $payu_obj->verifyPayment($_REQUEST);
+
+    $transactionInJson = json_encode($transaction);
+    // save in request.log
+    file_put_contents('request_success.json', $transactionInJson);
+}else{
+    $transactionInJson = json_encode($transaction);
+    // save in request.log
+    file_put_contents('request_failed.json', $transactionInJson);
+}
+```
 
 
 ## Documentation for various Methods 
