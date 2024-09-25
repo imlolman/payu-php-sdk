@@ -1,0 +1,16 @@
+{
+    "name": "imlolman/payu-php-sdk",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Imlolman\\PayuPhpSdk\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Satyam",
+            "email": "satyam.gupta756@gmail.com"
+        }
+    ],
+    "require": {}
+}
