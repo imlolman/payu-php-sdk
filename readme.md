@@ -34,7 +34,7 @@ Add the following code in your composer.json file so that you can use the SDK in
 "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/imlolman/PayPal-PHP-SDK.git"
+            "url": "https://github.com/imlolman/payu-php-sdk.git"
         }
 ]
 ```
