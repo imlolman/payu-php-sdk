@@ -56,6 +56,71 @@ $payu_obj = new Imlolman\PayuPhpSdk\PayU();
 ```
                        
 
+## Documentation for test setup
+
+```PHP
+// config.php
+define('MERCHANT_KEY', 'merchant_key');
+define('PAYU_SALT', 'payu_salt');
+```
+
+
+```PHP
+<?php
+// index.phps
+require_once 'vendor/autoload.php';
+require_once('config.php');
+
+$payu_obj = new Imlolman\PayuPhpSdk\PayU();
+
+$payu_obj->env_prod = 0;  //  1 for Live Environment/ 0 for SandBox Environment
+$payu_obj->key = MERCHANT_KEY;
+$payu_obj->salt = PAYU_SALT;
+
+$res = $payu_obj->initGateway();
+
+// Generate random data for the payment form
+$random_txnid = 'TXN' . uniqid();  // Random unique transaction ID
+$random_amount = 5; // Random amount between 100 and 10000
+$random_firstname = 'John' . rand(1, 100);
+$random_lastname = 'Doe' . rand(1, 100);
+$random_zipcode = str_pad(rand(10000, 99999), 5, '0', STR_PAD_LEFT);  // Random 5-digit zipcode
+$random_email = 'user' . rand(1, 100) . '@example.com';
+$random_phone = str_pad(rand(6000000000, 9999999999), 10, '0', STR_PAD_LEFT); // Random 10-digit phone number
+$random_address1 = 'Address ' . rand(1, 100);
+$random_city = 'City' . rand(1, 50);
+$random_state = 'State' . rand(1, 50);
+$random_country = 'Country' . rand(1, 50);
+$random_productinfo = 'Product ' . rand(1, 100);
+
+// Call the function with generated data
+$form = $payu_obj->getPaymentForm([
+    'txnid' => $random_txnid,
+    'amount' => $random_amount,
+    'productinfo' => $random_productinfo,
+    'firstname' => $random_firstname,
+    'lastname' => $random_lastname,
+    'zipcode' => $random_zipcode,
+    'email' => $random_email,
+    'phone' => $random_phone,
+    'address1' => $random_address1,
+    'city' => $random_city,
+    'state' => $random_state,
+    'country' => $random_country,
+    'udf1' => '',
+    'udf2' => '',
+    'udf3' => '',
+    'udf4' => '',
+    'udf5' => ''
+]);
+
+echo $form;
+
+?>
+```
+
+
+
 ## Documentation for various Methods 
 
 
@@ -64,7 +129,7 @@ $payu_obj = new Imlolman\PayuPhpSdk\PayU();
 This method can be used to submit HTML form code with the required parameters.
 
 ```PHP
-    public function showPaymentForm($params) {
+    public function get($params) {
         ?>
         <form action="<?= $this->url; ?>" id="payment_form_submit" method="post">
             <input type="hidden" id="surl" name="surl" value="<?= self::SUCCESS_URL; ?>" />
