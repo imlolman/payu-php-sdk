@@ -65,6 +65,14 @@
                 $params['udf5'] = "";
         }
         ?>
+        <?php
+        if (!empty($params['enforce_paymethod'])) {
+                ?>
+                <input type="hidden" id="enforce_paymethod" name="enforce_paymethod"
+                        value="<?= htmlspecialchars($params['enforce_paymethod'], ENT_QUOTES, 'UTF-8') ?>" />
+                <?php
+        }
+        ?>
         <input type="hidden" id="hash" name="hash" value="<?= $hash ?>" />
 </form>
 <script type="text/javascript">

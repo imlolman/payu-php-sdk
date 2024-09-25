@@ -114,6 +114,7 @@ $form = $payu_obj->getPaymentForm([
     'udf5' => '',
     'success_url' => 'https://test.payu.in/admin/test_response',
     'failure_url' => 'https://test.payu.in/admin/test_response',
+    // 'enforce_paymethod' => 'upi|card|...', // Optional [https://docs.payu.in/docs/enforce-pay-method-or-remove-category#enforce-payment-customization](Read Methods Here)
 ]);
 
 echo $form;
