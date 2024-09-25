@@ -40,7 +40,7 @@ Add the following code in your composer.json file so that you can use the SDK in
 ```
 
 ```bash
-composer require imlolman/payu-sdk-php:dev-main
+composer require imlolman/payu-php-sdk:dev-main
 ```
 
 
