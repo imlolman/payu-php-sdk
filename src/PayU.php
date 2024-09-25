@@ -102,10 +102,14 @@ class PayU
         $productInfo = $params['productinfo'];
         $firstname = $params['firstname'];
         $email = $params['email'];
+        $udf1 = $params['udf1'];
+        $udf2 = $params['udf2'];
+        $udf3 = $params['udf3'];
+        $udf4 = $params['udf4'];
         $udf5 = $params['udf5'];
         $status = $params['status'];
         $resphash = $params['hash'];
-        $keyString = $key . '|' . $txnid . '|' . $amount . '|' . $productInfo . '|' . $firstname . '|' . $email . '|||||' . $udf5 . '|||||';
+        $keyString = $key . '|' . $txnid . '|' . $amount . '|' . $productInfo . '|' . $firstname . '|' . $email . '|' . $udf1 . '|' . $udf2 . '|' . $udf3 . '|' . $udf4 . '|' . $udf5 . '|||||';
         $keyArray = explode("|", $keyString);
         $reverseKeyArray = array_reverse($keyArray);
         $reverseKeyString = implode("|", $reverseKeyArray);
@@ -118,7 +122,7 @@ class PayU
             //hash with additionalcharges
             $CalcHashString = strtolower(hash('sha512', $additionalCharges . '|' . $this->salt . '|' . $status . '|' . $reverseKeyString));
         }
-
+        
         return ($resphash == $CalcHashString) ? true : false;
     }
 
